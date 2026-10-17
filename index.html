@@ -1,1 +1,143 @@
-<title>hello world</title>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DiJuly — Dressed in Sound</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    width: 100%;
+    line-height: 0;
+  }
+  .hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hero-text {
+    position: absolute;
+    left: 40px;
+    color: #fff;
+    font-weight: 400;
+    margin: 0;
+  }
+  .hero-title {
+    left: 31px;
+    top: 110px;
+    font-size: 110px;
+    font-weight: 500;
+  }
+  .hero-subtitle {
+    top: 235px;
+    font-size: 38px;
+    font-weight: 400;
+  }
+  .hero-genre {
+    top: 295px;
+    font-size: 33px;
+    font-weight: 300;
+  }
+
+  /* ===== Price grid ===== */
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+  .price-col {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 400px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .price-col--basic    { background-image: url("assets/img/tariff-basic.jpg"); }
+  .price-col--standard { background-image: url("assets/img/tariff-standard.jpg"); }
+  .price-col--premium  { background-image: url("assets/img/tariff-premium.jpg"); }
+  .price-col h2 {
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 500;
+  }
+
+  /* ===== Footer image ===== */
+  .footer-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 767px) {
+    .hero-title {
+      left: 11.953px;
+      top: 21.949px;
+      font-size: 37px;
+    }
+    .hero-subtitle {
+      left: 15.888px;
+      top: 70.896px;
+      font-size: 15px;
+    }
+    .hero-genre {
+      left: 81.865px;
+      top: 281.923px;
+      font-size: 16px;
+    }
+    .price-grid {
+      grid-template-columns: 1fr;
+    }
+    .price-col {
+      min-height: 450px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <img src="assets/img/hero.jpg" alt="DiJuly" width="2044" height="1856">
+    <h1 class="hero-text hero-title">DiJuly</h1>
+    <h2 class="hero-text hero-subtitle">Dressed in Sound</h2>
+    <h3 class="hero-text hero-genre">Pop Dance Disco House</h3>
+  </section>
+
+  <section class="price-grid" id="price">
+    <div class="price-col price-col--basic">
+      <h2>Basic</h2>
+    </div>
+    <div class="price-col price-col--standard">
+      <h2>Standart</h2>
+    </div>
+    <div class="price-col price-col--premium">
+      <h2>Premium</h2>
+    </div>
+  </section>
+
+  <section class="footer">
+    <img class="footer-img" src="assets/img/footer.jpg" alt="DiJuly" width="2048" height="2560">
+  </section>
+
+</body>
+</html>
