@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -24,6 +24,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DiJuly — Dressed in Sound</title>
+<meta name="description" content="DiJuly — DJ for weddings, private parties and corporate events. Pop, Dance, Disco, House. Basic, Standard and Premium packages.">
+<link rel="canonical" href="https://dijuly.com/">
+<link rel="alternate" hreflang="en" href="https://dijuly.com/">
+<link rel="alternate" hreflang="ru" href="https://dijuly.com/">
+<link rel="alternate" hreflang="es" href="https://dijuly.com/">
+<link rel="alternate" hreflang="x-default" href="https://dijuly.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -71,6 +77,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     top: 295px;
     font-size: 33px;
     font-weight: 300;
+  }
+
+  /* ===== Language switcher ===== */
+  .lang-switch {
+    position: absolute;
+    top: 130px;
+    right: 31px;
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+  }
+  .lang-switch button {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0 14px;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 2px;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    cursor: pointer;
+    transition: opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .lang-switch button:hover {
+    opacity: 1;
+    border-color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  .lang-switch button:focus-visible {
+    opacity: 1;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .lang-switch button[hidden] {
+    display: none;
   }
 
   /* ===== Price grid ===== */
@@ -176,6 +228,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       top: 281.923px;
       font-size: 16px;
     }
+    .lang-switch {
+      top: 18px;
+      right: 12px;
+      gap: 6px;
+    }
+    .lang-switch button {
+      font-size: 11px;
+      padding: 0 10px;
+    }
     .price-grid {
       grid-template-columns: 1fr;
     }
@@ -199,23 +260,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1 class="hero-text hero-title">DiJuly</h1>
     <h2 class="hero-text hero-subtitle">Dressed in Sound</h2>
     <h3 class="hero-text hero-genre">Pop Dance Disco House</h3>
+    <div class="lang-switch" role="group" aria-label="Language switcher">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="es">ES</button>
+    </div>
   </section>
 
   <section class="price-grid" id="price">
     <div class="price-col price-col--basic">
       <h2>Basic</h2>
       <p class="price">$100</p>
-      <p class="condition">до 2 часов</p>
+      <p class="condition" data-i18n="basic_condition">up to 2 hours</p>
     </div>
     <div class="price-col price-col--standard">
       <h2>Standard</h2>
       <p class="price">$200</p>
-      <p class="condition">до 4 часов</p>
+      <p class="condition" data-i18n="standard_condition">up to 4 hours</p>
     </div>
     <div class="price-col price-col--premium">
       <h2>Premium</h2>
       <p class="price">$350+</p>
-      <p class="condition">до 6 часов</p>
+      <p class="condition" data-i18n="premium_condition">up to 6 hours</p>
     </div>
   </section>
 
@@ -243,5 +309,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+<script src="assets/js/i18n.js"></script>
 </body>
 </html>
