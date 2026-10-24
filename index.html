@@ -95,10 +95,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .price-col--premium  { background-image: url("assets/img/tariff-premium.jpg"); }
   .price-col h2 {
     margin: 0;
-    padding: 20px;
+    padding: 20px 20px 0;
     color: #fff;
     font-size: 25px;
     font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+  }
+  .price-col .price {
+    margin: 8px 0 0;
+    padding: 0 20px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+  }
+  .price-col .condition {
+    margin: 4px 0 0;
+    padding: 0 20px 20px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
   }
 
   /* ===== Footer image + social icons ===== */
@@ -187,12 +204,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="price-grid" id="price">
     <div class="price-col price-col--basic">
       <h2>Basic</h2>
+      <p class="price">$100</p>
+      <p class="condition">до 2 часов</p>
     </div>
     <div class="price-col price-col--standard">
       <h2>Standard</h2>
+      <p class="price">$200</p>
+      <p class="condition">до 4 часов</p>
     </div>
     <div class="price-col price-col--premium">
       <h2>Premium</h2>
+      <p class="price">$300 – $350+</p>
+      <p class="condition">до 6 часов</p>
     </div>
   </section>
 
