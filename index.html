@@ -125,6 +125,101 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: none;
   }
 
+  /* ===== Tracks player ===== */
+  .tracks {
+    width: 100%;
+    background: #000;
+    padding: 48px 20px;
+  }
+  .tracks-inner {
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .tracks-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+  .tracks-photo {
+    flex: 1 1 50%;
+    min-height: 320px;
+    background-image: url("assets/img/tracks-photo.jpg");
+    background-size: cover;
+    background-position: 35% center;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+  }
+  .track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+  }
+  .track:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .track-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .track-btn svg {
+    display: block;
+  }
+  .track-btn .icon-play {
+    margin-left: 2px;
+  }
+  .track-btn:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .track-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .track-title {
+    flex: 1 1 auto;
+    text-align: left;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+  }
+  .track.is-playing .track-title {
+    font-weight: 500;
+  }
+  .track.is-playing .track-btn {
+    border-color: #fff;
+  }
+  .track-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background: #fff;
+  }
+
   /* ===== Price grid ===== */
   .price-grid {
     display: grid;
@@ -168,33 +263,120 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
   }
 
-  /* ===== Footer image + social icons ===== */
-  .footer {
+  /* ===== Gallery (fan) ===== */
+  .gallery {
+    width: 100%;
+    padding: 56px 20px 48px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .fan-stage {
     position: relative;
     width: 100%;
-    line-height: 0;
+    max-width: 640px;
+    height: 300px;
+    margin: 0 auto;
   }
-  .footer-img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  .social-row {
+  .fan-card {
     position: absolute;
-    top: 11%;
+    bottom: 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    width: 150px;
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #0a0a0a;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transform-origin: 50% 100%;
+    transition: transform 0.6s cubic-bezier(0.22, 0.9, 0.32, 1), border-color 0.2s ease;
+  }
+  .fan-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+  .fan-card:hover,
+  .fan-card.is-active {
+    border-color: #fff;
+  }
+  .fan-card:focus-visible {
+    border-color: #fff;
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+  .fan-controls {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5%;
-    width: 90%;
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .fan-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    color: #fff;
+    opacity: 0.85;
+    cursor: pointer;
+    transition: opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .fan-arrow:hover {
+    opacity: 1;
+    border-color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  .fan-arrow:focus-visible {
+    opacity: 1;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .fan-counter {
+    min-width: 46px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fan-card {
+      transition: none;
+    }
+  }
+
+  /* ===== Social icons bar ===== */
+  .social-bar {
+    width: 100%;
+    background: #000;
+    padding: 44px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .social-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
   }
   .social-row a {
     display: flex;
-    width: 8%;
-    max-width: 58px;
-    min-width: 28px;
+    width: 44px;
     aspect-ratio: 1 / 1;
     opacity: 0.92;
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -207,6 +389,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     width: 100%;
     height: 100%;
     display: block;
+  }
+
+  /* ===== Footer image (face, always last) ===== */
+  .footer {
+    width: 100%;
+    line-height: 0;
+  }
+  .footer-img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   /* ===== Mobile ===== */
@@ -235,14 +428,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-size: 11px;
       padding: 0 10px;
     }
+    .tracks {
+      padding: 36px 16px;
+    }
+    .tracks-inner {
+      display: block;
+    }
+    .tracks-photo {
+      display: none;
+    }
+    .track {
+      gap: 12px;
+      padding: 12px 2px;
+    }
+    .track-btn {
+      width: 36px;
+      height: 36px;
+    }
+    .track-title {
+      font-size: 13px;
+    }
     .price-grid {
       grid-template-columns: 1fr;
     }
     .price-col {
       min-height: 450px;
     }
+    .gallery {
+      padding: 40px 16px 36px;
+    }
+    .fan-stage {
+      max-width: 360px;
+      height: 220px;
+    }
+    .fan-card {
+      width: 104px;
+    }
+    .social-bar {
+      padding: 32px 16px;
+    }
+    .social-row {
+      gap: 10px;
+    }
     .social-row a {
-      max-width: 40px;
+      width: 32px;
     }
   }
 </style>
@@ -265,6 +494,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <section class="tracks">
+   <div class="tracks-inner">
+    <ul class="tracks-list">
+      <li class="track" data-src="assets/audio/track-1.mp3">
+        <button type="button" class="track-btn" aria-label="Play">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+        <span class="track-title">DiJuly - My Heart Will Go On x Spirit Path (Afro House Mashup)</span>
+        <span class="track-progress"></span>
+      </li>
+      <li class="track" data-src="assets/audio/track-2.mp3">
+        <button type="button" class="track-btn" aria-label="Play">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+        <span class="track-title">DiJuly - Soul Brother (Superlover Remix) x Любовь спасет мир (Mashup)</span>
+        <span class="track-progress"></span>
+      </li>
+      <li class="track" data-src="assets/audio/track-3.mp3">
+        <button type="button" class="track-btn" aria-label="Play">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+        <span class="track-title">DiJuly - Я Волна x Новогодняя (New Year Mashup)</span>
+        <span class="track-progress"></span>
+      </li>
+      <li class="track" data-src="assets/audio/track-4.mp3">
+        <button type="button" class="track-btn" aria-label="Play">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+        <span class="track-title">DiJuly - Funky Town x А я все летала (Mashup)</span>
+        <span class="track-progress"></span>
+      </li>
+      <li class="track" data-src="assets/audio/track-5.mp3">
+        <button type="button" class="track-btn" aria-label="Play">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+        <span class="track-title">DiJuly - Mediterranea x Я была (Mashup)</span>
+        <span class="track-progress"></span>
+      </li>
+      <li class="track" data-src="assets/audio/track-6.mp3">
+        <button type="button" class="track-btn" aria-label="Play">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+        <span class="track-title">DiJuly - Ferrari x ЛМЛ (Mashup)</span>
+        <span class="track-progress"></span>
+      </li>
+    </ul>
+    <div class="tracks-photo" aria-hidden="true"></div>
+   </div>
+  </section>
+
   <section class="price-grid" id="price">
     <div class="price-col price-col--basic">
       <h2>Basic</h2>
@@ -283,8 +568,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <section class="footer">
-    <img class="footer-img" src="assets/img/footer.jpg" alt="DiJuly" width="2048" height="2560">
+  <section class="social-bar">
     <div class="social-row">
       <a href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener">
         <img src="assets/icons/instagram.svg" alt="Instagram">
@@ -310,6 +594,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <section class="gallery">
+    <div class="fan-stage" role="group" data-i18n-aria="gallery_aria_label" aria-label="DJ photo gallery">
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-1.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-2.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-3.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-4.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-5.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-6.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-7.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-8.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-9.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-10.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-11.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+      <button type="button" class="fan-card">
+        <img src="assets/img/gallery/gallery-12.jpg" alt="DiJuly" width="800" height="1000" loading="lazy">
+      </button>
+    </div>
+    <div class="fan-controls">
+      <button type="button" class="fan-arrow fan-arrow--prev" data-i18n-aria="gallery_prev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <span class="fan-counter" aria-live="polite">
+        <span class="fan-counter-current">1</span> / <span class="fan-counter-total">12</span>
+      </span>
+      <button type="button" class="fan-arrow fan-arrow--next" data-i18n-aria="gallery_next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <section class="footer">
+    <img class="footer-img" src="assets/img/footer-face.jpg" alt="DiJuly" width="2048" height="1229">
+  </section>
+
 <script src="assets/js/i18n.js"></script>
+<script src="assets/js/player.js"></script>
+<script src="assets/js/gallery.js"></script>
 </body>
 </html>

@@ -4,8 +4,12 @@
  * словари переводов + логика переключателя.
  *
  * Как добавить новую переводимую строку:
- *   1. В HTML добавить атрибут data-i18n="ключ" на элемент.
+ *   1. В HTML добавить атрибут data-i18n="ключ" (меняет textContent) или
+ *      data-i18n-aria="ключ" (меняет aria-label — для кнопок/иконок без текста).
  *   2. Добавить "ключ": "..." в каждый из словарей ниже (en/ru/es).
+ * При смене языка кидается document-событие "dj:langchange" — на него можно
+ * подписаться из другого скрипта (например gallery.js), если его собственным
+ * динамическим элементам (созданным через JS) тоже нужно локализоваться.
  * Чего НЕ переводим осознанно: DiJuly, Dressed in Sound, названия жанров,
  * Basic/Standard/Premium, цены — это бренд-элементы, см. DOCS.md.
  */
@@ -25,7 +29,10 @@
         "DiJuly — DJ for weddings, private parties and corporate events. Pop, Dance, Disco, House. Basic, Standard and Premium packages.",
       lang_name_en: "English",
       lang_name_ru: "Russian",
-      lang_name_es: "Spanish"
+      lang_name_es: "Spanish",
+      gallery_aria_label: "DJ photo gallery",
+      gallery_prev: "Previous photo",
+      gallery_next: "Next photo"
     },
     ru: {
       basic_condition: "до 2 часов",
@@ -35,7 +42,10 @@
         "DiJuly — диджей на свадьбу, частную вечеринку и корпоратив. Pop, Dance, Disco, House. Пакеты Basic, Standard и Premium.",
       lang_name_en: "английский",
       lang_name_ru: "русский",
-      lang_name_es: "испанский"
+      lang_name_es: "испанский",
+      gallery_aria_label: "Галерея фото диджея",
+      gallery_prev: "Предыдущее фото",
+      gallery_next: "Следующее фото"
     },
     es: {
       basic_condition: "hasta 2 horas",
@@ -45,7 +55,10 @@
         "DiJuly — DJ para bodas, fiestas privadas y eventos corporativos. Pop, Dance, Disco, House. Paquetes Basic, Standard y Premium.",
       lang_name_en: "inglés",
       lang_name_ru: "ruso",
-      lang_name_es: "español"
+      lang_name_es: "español",
+      gallery_aria_label: "Galería de fotos del DJ",
+      gallery_prev: "Foto anterior",
+      gallery_next: "Foto siguiente"
     }
   };
 
@@ -91,6 +104,12 @@
       metaDescription.setAttribute("content", dict.meta_description);
     }
 
+    var ariaNodes = document.querySelectorAll("[data-i18n-aria]");
+    for (var a = 0; a < ariaNodes.length; a++) {
+      var ariaKey = ariaNodes[a].getAttribute("data-i18n-aria");
+      if (dict[ariaKey] != null) ariaNodes[a].setAttribute("aria-label", dict[ariaKey]);
+    }
+
     var buttons = document.querySelectorAll(".lang-switch button[data-lang]");
     for (var j = 0; j < buttons.length; j++) {
       var btn = buttons[j];
@@ -105,6 +124,10 @@
     }
 
     setStoredLang(lang);
+
+    // Даёт знать другим скриптам на странице (например галерее), что язык сменился,
+    // чтобы они обновили свои собственные динамические aria-label и т.п.
+    document.dispatchEvent(new CustomEvent("dj:langchange", { detail: { lang: lang } }));
   }
 
   function initSwitcher() {
