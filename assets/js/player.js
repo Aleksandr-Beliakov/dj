@@ -44,8 +44,6 @@
     rows.forEach(function (row, i) {
       var playing = i === current && !audio.paused;
       row.classList.toggle("is-playing", playing);
-      row.querySelector(".icon-play").hidden = playing;
-      row.querySelector(".icon-pause").hidden = !playing;
       row.querySelector(".track-btn").setAttribute(
         "aria-label",
         playing ? LABEL.pause[lang] : LABEL.play[lang]
@@ -62,6 +60,7 @@
       current = index;
       audio.src = rows[index].getAttribute("data-src");
     }
+    pauseMixcloud();
     var playResult = audio.play();
     // audio.paused становится false синхронно внутри play(), но событие
     // "play" браузер доставляет асинхронной задачей — не ждём его, а сразу
@@ -136,6 +135,29 @@
       setRowProgress(i, (audio.currentTime / audio.duration) * 100);
     });
   });
+
+  // Взаимное исключение с Mixcloud-плеером (iframe, управляется через
+  // Mixcloud Widget API): играет что-то одно — запуск другого ставит первое на паузу.
+  var mixWidget = null;
+  function pauseMixcloud() {
+    if (mixWidget) { try { mixWidget.pause(); } catch (e) {} }
+  }
+  function initMixcloud() {
+    var frame = document.getElementById("mixcloud-frame");
+    if (!frame || !window.Mixcloud || mixWidget) return;
+    mixWidget = window.Mixcloud.PlayerWidget(frame);
+    mixWidget.ready.then(function () {
+      mixWidget.events.play.on(function () {
+        if (!audio.paused) { audio.pause(); refreshUI(); }
+      });
+    });
+  }
+  if (window.Mixcloud) {
+    initMixcloud();
+  } else {
+    var apiScript = document.getElementById("mixcloud-api");
+    if (apiScript) apiScript.addEventListener("load", initMixcloud);
+  }
 
   audio.addEventListener("play", refreshUI);
   audio.addEventListener("pause", refreshUI);

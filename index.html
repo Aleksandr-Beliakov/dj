@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -21,7 +22,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/113660156" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DiJuly — Dressed in Sound</title>
 <meta name="description" content="DiJuly — DJ for weddings, private parties and corporate events. Pop, Dance, Disco, House. Basic, Standard and Premium packages.">
@@ -219,8 +219,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .track-btn svg {
     display: block;
   }
-  .track-btn svg[hidden] {
+  /* Иконки переключаются классом .is-playing на строке, а не атрибутом
+     hidden: у SVG-элементов нет JS-свойства .hidden (оно только у
+     HTMLElement), поэтому svg.hidden = true ничего не делает. */
+  .track-btn .icon-pause {
     display: none;
+  }
+  .track.is-playing .track-btn .icon-play {
+    display: none;
+  }
+  .track.is-playing .track-btn .icon-pause {
+    display: block;
   }
   .track-btn .icon-play {
     margin-left: 2px;
@@ -634,7 +643,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="mixcloud">
     <div class="mixcloud-container">
       <div class="mixcloud-inner">
-        <iframe
+        <iframe id="mixcloud-frame"
           src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=0&feed=%2Fdijulyofficial%2Fdijuly-tech-house-mix%2F&utm_medium=share&utm_source=embed&utm_content=show&utm_term=VXNlcjo1NTc2ODUzNg%3D%3D"
           frameborder="0" loading="lazy" title="DiJuly — Tech House Mix (Mixcloud)"
           allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;">
@@ -649,7 +658,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="track" data-src="assets/audio/track-1.mp3">
         <button type="button" class="track-btn" aria-label="Play">
           <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - My Heart Will Go On x Spirit Path (Afro House Mashup)</span>
         <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -659,7 +668,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="track" data-src="assets/audio/track-2.mp3">
         <button type="button" class="track-btn" aria-label="Play">
           <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Soul Brother (Superlover Remix) x Любовь спасет мир (Mashup)</span>
         <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -669,7 +678,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="track" data-src="assets/audio/track-3.mp3">
         <button type="button" class="track-btn" aria-label="Play">
           <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Я Волна x Новогодняя (New Year Mashup)</span>
         <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -679,7 +688,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="track" data-src="assets/audio/track-4.mp3">
         <button type="button" class="track-btn" aria-label="Play">
           <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Funky Town x А я все летала (Mashup)</span>
         <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -689,7 +698,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="track" data-src="assets/audio/track-5.mp3">
         <button type="button" class="track-btn" aria-label="Play">
           <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Mediterranea x Я была (Mashup)</span>
         <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -699,7 +708,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="track" data-src="assets/audio/track-6.mp3">
         <button type="button" class="track-btn" aria-label="Play">
           <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Ferrari x ЛМЛ (Mashup)</span>
         <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -843,6 +852,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
 <script src="assets/js/i18n.js"></script>
+<script id="mixcloud-api" async src="https://widget.mixcloud.com/media/js/widgetApi.js"></script>
 <script src="assets/js/player.js"></script>
 <script src="assets/js/gallery.js"></script>
 </body>
