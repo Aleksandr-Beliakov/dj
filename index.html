@@ -25,6 +25,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DiJuly — Dressed in Sound</title>
 <meta name="description" content="DiJuly — DJ for weddings, private parties and corporate events. Pop, Dance, Disco, House. Basic, Standard and Premium packages.">
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 <link rel="canonical" href="https://dijuly.com/">
 <link rel="alternate" hreflang="en" href="https://dijuly.com/">
 <link rel="alternate" hreflang="ru" href="https://dijuly.com/">
@@ -211,13 +215,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .track.is-playing .track-btn {
     border-color: #fff;
   }
-  .track-progress {
+  .track-seek {
     position: absolute;
     left: 0;
+    right: 0;
     bottom: 0;
+    height: 18px;
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .track-seek::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .track-seek:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .track-progress {
+    position: relative;
+    display: block;
     height: 2px;
     width: 0%;
     background: #fff;
+  }
+  .track-seek:hover .track-progress,
+  .track-seek:focus-visible .track-progress {
+    height: 3px;
   }
 
   /* ===== Price grid ===== */
@@ -231,7 +263,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     min-height: 400px;
     padding: 28px 20px;
     background-position: center center;
@@ -241,6 +272,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .price-col--basic    { background-image: url("assets/img/tariff-basic.jpg"); }
   .price-col--standard { background-image: url("assets/img/tariff-standard.jpg"); }
   .price-col--premium  { background-image: url("assets/img/tariff-premium.jpg"); }
+  .price-text {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
   .price-col h2 {
     margin: 0;
     color: #fff;
@@ -261,6 +300,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 16px;
     font-weight: 300;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+  }
+  .price-book {
+    flex: 0 0 auto;
+    margin-top: 22px;
+    padding: 12px 32px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .price-book:hover {
+    opacity: 0.85;
+  }
+  .price-book:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
   }
 
   /* ===== Gallery (fan) ===== */
@@ -454,6 +517,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .price-col {
       min-height: 450px;
     }
+    .price-book {
+      margin-top: 18px;
+      padding: 10px 28px;
+      font-size: 12px;
+    }
     .gallery {
       padding: 40px 16px 36px;
     }
@@ -503,7 +571,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - My Heart Will Go On x Spirit Path (Afro House Mashup)</span>
-        <span class="track-progress"></span>
+        <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="track-progress"></span>
+        </div>
       </li>
       <li class="track" data-src="assets/audio/track-2.mp3">
         <button type="button" class="track-btn" aria-label="Play">
@@ -511,7 +581,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Soul Brother (Superlover Remix) x Любовь спасет мир (Mashup)</span>
-        <span class="track-progress"></span>
+        <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="track-progress"></span>
+        </div>
       </li>
       <li class="track" data-src="assets/audio/track-3.mp3">
         <button type="button" class="track-btn" aria-label="Play">
@@ -519,7 +591,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Я Волна x Новогодняя (New Year Mashup)</span>
-        <span class="track-progress"></span>
+        <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="track-progress"></span>
+        </div>
       </li>
       <li class="track" data-src="assets/audio/track-4.mp3">
         <button type="button" class="track-btn" aria-label="Play">
@@ -527,7 +601,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Funky Town x А я все летала (Mashup)</span>
-        <span class="track-progress"></span>
+        <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="track-progress"></span>
+        </div>
       </li>
       <li class="track" data-src="assets/audio/track-5.mp3">
         <button type="button" class="track-btn" aria-label="Play">
@@ -535,7 +611,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Mediterranea x Я была (Mashup)</span>
-        <span class="track-progress"></span>
+        <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="track-progress"></span>
+        </div>
       </li>
       <li class="track" data-src="assets/audio/track-6.mp3">
         <button type="button" class="track-btn" aria-label="Play">
@@ -543,7 +621,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
         </button>
         <span class="track-title">DiJuly - Ferrari x ЛМЛ (Mashup)</span>
-        <span class="track-progress"></span>
+        <div class="track-seek" role="slider" tabindex="0" data-i18n-aria="track_seek" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="track-progress"></span>
+        </div>
       </li>
     </ul>
     <div class="tracks-photo" aria-hidden="true"></div>
@@ -552,19 +632,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section class="price-grid" id="price">
     <div class="price-col price-col--basic">
-      <h2>Basic</h2>
-      <p class="price">$100</p>
-      <p class="condition" data-i18n="basic_condition">up to 2 hours</p>
+      <div class="price-text">
+        <h2>Basic</h2>
+        <p class="price">$100</p>
+        <p class="condition" data-i18n="basic_condition">up to 2 hours</p>
+      </div>
+      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener" data-i18n="book_now">Book Now</a>
     </div>
     <div class="price-col price-col--standard">
-      <h2>Standard</h2>
-      <p class="price">$200</p>
-      <p class="condition" data-i18n="standard_condition">up to 4 hours</p>
+      <div class="price-text">
+        <h2>Standard</h2>
+        <p class="price">$200</p>
+        <p class="condition" data-i18n="standard_condition">up to 4 hours</p>
+      </div>
+      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener" data-i18n="book_now">Book Now</a>
     </div>
     <div class="price-col price-col--premium">
-      <h2>Premium</h2>
-      <p class="price">$350</p>
-      <p class="condition" data-i18n="premium_condition">up to 6 hours</p>
+      <div class="price-text">
+        <h2>Premium</h2>
+        <p class="price">$350</p>
+        <p class="condition" data-i18n="premium_condition">up to 6 hours</p>
+      </div>
+      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener" data-i18n="book_now">Book Now</a>
     </div>
   </section>
 

@@ -32,7 +32,9 @@
       lang_name_es: "Spanish",
       gallery_aria_label: "DJ photo gallery",
       gallery_prev: "Previous photo",
-      gallery_next: "Next photo"
+      gallery_next: "Next photo",
+      book_now: "Book Now",
+      track_seek: "Seek"
     },
     ru: {
       basic_condition: "до 2 часов",
@@ -45,7 +47,9 @@
       lang_name_es: "испанский",
       gallery_aria_label: "Галерея фото диджея",
       gallery_prev: "Предыдущее фото",
-      gallery_next: "Следующее фото"
+      gallery_next: "Следующее фото",
+      book_now: "Забронировать",
+      track_seek: "Перемотка"
     },
     es: {
       basic_condition: "hasta 2 horas",
@@ -58,7 +62,9 @@
       lang_name_es: "español",
       gallery_aria_label: "Galería de fotos del DJ",
       gallery_prev: "Foto anterior",
-      gallery_next: "Foto siguiente"
+      gallery_next: "Foto siguiente",
+      book_now: "Reservar Ahora",
+      track_seek: "Buscar"
     }
   };
 
