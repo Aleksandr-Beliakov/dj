@@ -17,6 +17,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 <link rel="canonical" href="https://dijuly.com/">
+<script>
+  if (/\/index\.html?$/.test(location.pathname)) {
+    location.replace(location.pathname.replace(/index\.html?$/, "") + location.search + location.hash);
+  }
+</script>
 <link rel="alternate" hreflang="en" href="https://dijuly.com/">
 <link rel="alternate" hreflang="ru" href="https://dijuly.com/">
 <link rel="alternate" hreflang="es" href="https://dijuly.com/">
