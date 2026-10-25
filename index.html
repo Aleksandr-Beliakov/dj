@@ -129,6 +129,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: none;
   }
 
+  /* ===== Mixcloud embed ===== */
+  .mixcloud {
+    width: 100%;
+    background: #000;
+    padding: 32px 20px 0;
+  }
+  .mixcloud-container {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .mixcloud-inner {
+    /* Широкий и центрированный — та же общая ширина, что у всей секции
+       треков (список + фото вместе), поровну отступов слева и справа. */
+    width: 100%;
+    padding: 2px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    line-height: 0;
+  }
+  .mixcloud-inner iframe {
+    display: block;
+    width: 100%;
+    height: 60px;
+    border: 0;
+    border-radius: 5px;
+  }
+
   /* ===== Tracks player ===== */
   .tracks {
     width: 100%;
@@ -523,8 +552,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-size: 11px;
       padding: 0 10px;
     }
+    .mixcloud {
+      padding: 20px 16px 0;
+    }
     .tracks {
-      padding: 36px 16px;
+      /* Верхний отступ уменьшен до размера внутреннего паддинга строки
+         трека (14px) — вместе с ним гэп между Mixcloud-плеером и первым
+         треком равен обычному гэпу между треками (14+14=28px), без
+         увеличенного "воздуха" отдельно под сам плеер. */
+      padding: 14px 16px 36px;
     }
     .tracks-inner {
       display: block;
@@ -592,6 +628,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button type="button" data-lang="en">EN</button>
       <button type="button" data-lang="ru">RU</button>
       <button type="button" data-lang="es">ES</button>
+    </div>
+  </section>
+
+  <section class="mixcloud">
+    <div class="mixcloud-container">
+      <div class="mixcloud-inner">
+        <iframe
+          src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=0&feed=%2Fdijulyofficial%2Fdijuly-tech-house-mix%2F&utm_medium=share&utm_source=embed&utm_content=show&utm_term=VXNlcjo1NTc2ODUzNg%3D%3D"
+          frameborder="0" loading="lazy" title="DiJuly — Tech House Mix (Mixcloud)"
+          allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;">
+        </iframe>
+      </div>
     </div>
   </section>
 
