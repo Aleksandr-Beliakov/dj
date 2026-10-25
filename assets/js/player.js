@@ -62,7 +62,20 @@
       current = index;
       audio.src = rows[index].getAttribute("data-src");
     }
-    audio.play();
+    var playResult = audio.play();
+    // audio.paused становится false синхронно внутри play(), но событие
+    // "play" браузер доставляет асинхронной задачей — не ждём его, а сразу
+    // обновляем UI, иначе при быстрой смене трека (src меняется, пока
+    // предыдущий ещё играл) может проскочить "паразитный" pause-эвент
+    // от сброса src и визуально оставить кнопку в состоянии "play".
+    refreshUI();
+    if (playResult && typeof playResult.catch === "function") {
+      playResult.catch(function () {
+        // play() могли прервать (например, быстрым повторным кликом) —
+        // синхронизируем UI с реальным состоянием audio ещё раз.
+        refreshUI();
+      });
+    }
   }
 
   function seekToClientX(index, seekEl, clientX) {
@@ -78,6 +91,7 @@
     row.querySelector(".track-btn").addEventListener("click", function () {
       if (i === current && !audio.paused) {
         audio.pause();
+        refreshUI();
       } else {
         playTrack(i);
       }
