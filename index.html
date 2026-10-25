@@ -304,26 +304,55 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .price-book {
     flex: 0 0 auto;
     margin-top: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     padding: 12px 32px;
-    background: #fff;
-    color: #000;
-    border: 1px solid #fff;
-    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #fff;
     font-family: "Montserrat", sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    letter-spacing: 0.3px;
     text-decoration: none;
     cursor: pointer;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .price-book-arrow {
+    flex: 0 0 auto;
+    display: inline-flex;
+    transition: transform 0.2s ease;
   }
   .price-book:hover {
-    opacity: 0.85;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .price-book:hover .price-book-arrow {
+    transform: translateX(3px);
   }
   .price-book:focus-visible {
     outline: 2px solid #fff;
     outline-offset: 3px;
+  }
+  /* Обводка кнопки тонируется под цвет свечения конкретного фото-тарифа */
+  .price-col--basic .price-book,
+  .price-col--premium .price-book {
+    border-color: rgba(214, 178, 160, 0.55);
+  }
+  .price-col--basic .price-book:hover,
+  .price-col--premium .price-book:hover {
+    border-color: rgba(214, 178, 160, 0.85);
+  }
+  .price-col--standard .price-book {
+    border-color: rgba(150, 210, 180, 0.55);
+  }
+  .price-col--standard .price-book:hover {
+    border-color: rgba(150, 210, 180, 0.85);
   }
 
   /* ===== Gallery (fan) ===== */
@@ -519,8 +548,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     .price-book {
       margin-top: 18px;
-      padding: 10px 28px;
-      font-size: 12px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 14px;
     }
     .gallery {
       padding: 40px 16px 36px;
@@ -637,7 +667,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="price">$100</p>
         <p class="condition" data-i18n="basic_condition">up to 2 hours</p>
       </div>
-      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener" data-i18n="book_now">Book Now</a>
+      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener">
+        <span data-i18n="book_now">Book Now</span>
+        <svg class="price-book-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
     <div class="price-col price-col--standard">
       <div class="price-text">
@@ -645,7 +681,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="price">$200</p>
         <p class="condition" data-i18n="standard_condition">up to 4 hours</p>
       </div>
-      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener" data-i18n="book_now">Book Now</a>
+      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener">
+        <span data-i18n="book_now">Book Now</span>
+        <svg class="price-book-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
     <div class="price-col price-col--premium">
       <div class="price-text">
@@ -653,7 +695,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="price">$350</p>
         <p class="condition" data-i18n="premium_condition">up to 6 hours</p>
       </div>
-      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener" data-i18n="book_now">Book Now</a>
+      <a class="price-book" href="https://www.instagram.com/dijuly/" target="_blank" rel="noopener">
+        <span data-i18n="book_now">Book Now</span>
+        <svg class="price-book-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
   </section>
 
