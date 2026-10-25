@@ -152,6 +152,13 @@
   audio.addEventListener("timeupdate", function () {
     if (current < 0 || !audio.duration) return;
     setRowProgress(current, (audio.currentTime / audio.duration) * 100);
+    // Подстраховка: timeupdate летит каждые ~250мс во время реального
+    // воспроизведения, так что если иконка почему-то не синхронизировалась
+    // раньше (play/pause-эвенты срабатывают не везде одинаково надёжно),
+    // она сама досинхронизируется в течение четверти секунды.
+    if (!rows[current].classList.contains("is-playing") && !audio.paused) {
+      refreshUI();
+    }
   });
 
   document.addEventListener("dj:langchange", refreshUI);
