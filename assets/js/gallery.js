@@ -58,12 +58,16 @@
       var angle = offset * ANGLE_STEP;
       var x = offset * spacingX;
       var y = offset === 0 ? -cardH * 0.12 : abs * cardH * 0.06;
-      var scale = offset === 0 ? 1.15 : Math.max(0.7, 1 - abs * 0.08);
+      var scale = offset === 0 ? 1.35 : Math.max(0.65, 1 - abs * 0.1);
+      var opacity = offset === 0 ? 1 : Math.max(0.45, 1 - abs * 0.18);
+      var brightness = offset === 0 ? 1 : Math.max(0.55, 1 - abs * 0.15);
 
       card.style.transform =
         "translateX(-50%) translateX(" + x + "px) translateY(" + y + "px) " +
         "rotate(" + angle + "deg) scale(" + scale + ")";
       card.style.zIndex = String(100 - abs);
+      card.style.opacity = String(opacity);
+      card.style.filter = "brightness(" + brightness + ")";
       card.classList.toggle("is-active", offset === 0);
       if (offset === 0) {
         card.setAttribute("aria-current", "true");
