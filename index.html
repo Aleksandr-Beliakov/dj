@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="alternate" hreflang="x-default" href="https://dijuly.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
   html, body {
@@ -45,36 +45,92 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position: relative;
     width: 100%;
     line-height: 0;
+    overflow: hidden;
   }
   .hero img {
     display: block;
     width: 100%;
     height: auto;
   }
-  .hero-text {
+
+  /* ---- Hero: плашка с именем и слоганом, строка жанров, затемнение снизу ----
+     Все размеры — fluid clamp() между эталонными значениями на 350px и
+     1908px (макеты заказчика), ниже/выше этого диапазона — зажаты на
+     граничном значении. letter-spacing задан в em — масштабируется вместе
+     с font-size автоматически, отдельный clamp для него не нужен. */
+  .hero__scrim {
     position: absolute;
-    left: 40px;
-    color: #fff;
-    font-weight: 400;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(130px, calc(130px + (100vw - 350px) * 0.25032), 520px);
+    background: linear-gradient(to top, rgba(5, 4, 3, 0.85), rgba(5, 4, 3, 0));
+    pointer-events: none;
+  }
+  .hero__plate {
+    position: absolute;
+    left: clamp(10px, calc(10px + (100vw - 350px) * 0.02439), 48px);
+    top: clamp(10px, calc(10px + (100vw - 350px) * 0.02439), 48px);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: clamp(10px, calc(10px + (100vw - 350px) * 0.01926), 40px)
+      clamp(12px, calc(12px + (100vw - 350px) * 0.02311), 48px)
+      clamp(10px, calc(10px + (100vw - 350px) * 0.01669), 36px);
+    background: #000;
+  }
+  .hero__name {
     margin: 0;
-  }
-  .hero-title {
-    left: 31px;
-    top: 110px;
-    font-size: 110px;
-    font-weight: 500;
-  }
-  .hero-subtitle {
-    top: 235px;
-    font-size: 32px;
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(30px, calc(30px + (100vw - 350px) * 0.0732), 144px);
+    line-height: clamp(28px, calc(28px + (100vw - 350px) * 0.06419), 128px);
     font-weight: 400;
-    letter-spacing: 4px;
+    letter-spacing: -0.01em;
     text-transform: uppercase;
+    color: #fff;
   }
-  .hero-genre {
-    top: 295px;
-    font-size: 33px;
-    font-weight: 300;
+  .hero__tagline {
+    margin: clamp(8px, calc(8px + (100vw - 350px) * 0.00899), 22px) 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(9px, calc(9px + (100vw - 350px) * 0.01348), 30px);
+    line-height: clamp(9px, calc(9px + (100vw - 350px) * 0.01348), 30px);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .hero__tagline-space {
+    display: inline-block;
+    width: clamp(4px, calc(4px + (100vw - 350px) * 0.00642), 14px);
+  }
+  .hero__genres {
+    position: absolute;
+    left: clamp(22px, calc(22px + (100vw - 350px) * 0.0475), 96px);
+    bottom: clamp(22px, calc(22px + (100vw - 350px) * 0.03723), 80px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, calc(14px + (100vw - 350px) * 0.01669), 40px);
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(11px, calc(11px + (100vw - 350px) * 0.01091), 28px);
+    line-height: clamp(16px, calc(16px + (100vw - 350px) * 0.01284), 36px);
+    font-weight: 500;
+    letter-spacing: clamp(0.2em, calc(0.2em + (100vw - 350px) * 0.0000257), 0.24em);
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .hero__genres li + li::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: clamp(12px, calc(12px + (100vw - 350px) * 0.01027), 28px);
+    margin-right: clamp(14px, calc(14px + (100vw - 350px) * 0.01669), 40px);
+    background: rgba(255, 255, 255, 0.35);
+    vertical-align: middle;
   }
 
   /* ===== Language switcher ===== */
@@ -559,22 +615,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ===== Mobile ===== */
   @media (max-width: 767px) {
-    .hero-title {
-      left: 11.953px;
-      top: 25px;
-      font-size: 37px;
-    }
-    .hero-subtitle {
-      left: 15.888px;
-      top: 74px;
-      font-size: 13px;
-      letter-spacing: 2px;
-    }
-    .hero-genre {
-      left: 81.865px;
-      top: 281.923px;
-      font-size: 16px;
-    }
     .lang-switch {
       top: 10px;
       right: 12px;
@@ -653,9 +693,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section class="hero">
     <img src="assets/img/hero.jpg" alt="DiJuly" width="2044" height="1856">
-    <h1 class="hero-text hero-title">DiJuly</h1>
-    <h2 class="hero-text hero-subtitle">Dressed in Sound</h2>
-    <h3 class="hero-text hero-genre">Pop Dance Disco House</h3>
+    <div class="hero__scrim"></div>
+    <div class="hero__plate">
+      <h1 class="hero__name">DiJuly</h1>
+      <p class="hero__tagline"></p>
+    </div>
+    <ul class="hero__genres">
+      <li>Pop</li>
+      <li>Dance</li>
+      <li>Disco</li>
+      <li>House</li>
+    </ul>
     <div class="lang-switch" role="group" aria-label="Language switcher">
       <button type="button" data-lang="en">EN</button>
       <button type="button" data-lang="ru">RU</button>
@@ -875,6 +923,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
 <script src="assets/js/i18n.js"></script>
+<script src="assets/js/hero-tagline.js"></script>
 <script id="mixcloud-api" async src="https://widget.mixcloud.com/media/js/widgetApi.js"></script>
 <script src="assets/js/player.js"></script>
 <script src="assets/js/gallery.js"></script>
