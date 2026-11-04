@@ -38,6 +38,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     width: 100%;
     font-family: "Montserrat", sans-serif;
   }
+  :root {
+    /* Левый/правый отступ hero-контента (по нему стоит строка жанров) —
+       на ПК по нему же выровнены Mixcloud и блок треков, симметрично
+       с обеих сторон. */
+    --hero-pad: clamp(22px, calc(22px + (100vw - 350px) * 0.0475), 96px);
+  }
   html {
     /* overflow-x только на html, не на body — overflow-x на body заставляет
        браузер молча выставить body overflow-y: auto (так работает спека),
@@ -125,7 +131,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position: sticky;
     bottom: clamp(22px, calc(22px + (100vw - 350px) * 0.03723), 80px);
     margin: 0;
-    padding-left: clamp(22px, calc(22px + (100vw - 350px) * 0.0475), 96px);
+    padding-left: var(--hero-pad);
     list-style: none;
     display: flex;
     align-items: center;
@@ -251,8 +257,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     flex: 1 1 50%;
     min-height: 320px;
     background-image: url("assets/img/tracks-photo.jpg");
-    background-size: cover;
-    background-position: 35% center;
+    background-size: auto 108%;
+    background-position: 22% 100%;
     background-repeat: no-repeat;
     border-radius: 2px;
   }
@@ -630,6 +636,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  /* ===== Desktop: Mixcloud и треки на всю ширину между отступами hero ===== */
+  @media (min-width: 768px) {
+    .mixcloud {
+      padding: 32px var(--hero-pad) 0;
+    }
+    .tracks {
+      padding: 14px var(--hero-pad) 48px;
+    }
+    .mixcloud-container,
+    .tracks-inner {
+      max-width: none;
+    }
   }
 
   /* ===== Mobile ===== */
