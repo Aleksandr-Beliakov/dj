@@ -18,6 +18,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 <link rel="canonical" href="https://dijuly.com/">
 <script>
+  document.documentElement.classList.add("js");
   if (/\/index\.html?$/.test(location.pathname)) {
     location.replace(location.pathname.replace(/index\.html?$/, "") + location.search + location.hash);
   }
@@ -57,6 +58,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* ===== Hero ===== */
   .hero {
     position: relative;
+    /* flow-root: margin-bottom у .hero__genres не "вытекает" наружу —
+       высота hero остаётся ровно высотой фото (затемнение снизу на месте). */
+    display: flow-root;
     width: 100%;
     line-height: 0;
   }
@@ -118,6 +122,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: inline-block;
     width: clamp(4px, calc(4px + (100vw - 350px) * 0.00642), 14px);
   }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
   .hero__genres {
     /* На ПК — "плавающая": прилипает к низу экрана при скролле (sticky
        относительно .hero, её прямого родителя), пока не дойдёт до своего
@@ -128,9 +143,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        элемента "left" работает как у position:relative и сдвигает блок
        только когда возможен горизонтальный скролл — на этой странице его
        нет, так что left попросту игнорировался бы (проверено практически). */
+    --genres-bottom: clamp(22px, calc(22px + (100vw - 350px) * 0.03723), 80px);
+    --genres-rest: 20px;
+    --genres-lh: clamp(16px, calc(16px + (100vw - 350px) * 0.01284), 36px);
     position: sticky;
-    bottom: clamp(22px, calc(22px + (100vw - 350px) * 0.03723), 80px);
-    margin: 0;
+    bottom: var(--genres-bottom);
+    /* <ul> стоит в потоке после фото. Отрицательный margin-top поднимает
+       его "родное" место на фото (на --genres-rest выше нижнего края),
+       margin-bottom возвращает высоту — hero остаётся ровно высотой фото.
+       Поэтому после прокрутки строка останавливается на фото, а не на
+       чёрной полосе под ним. --genres-bottom — высота над низом экрана,
+       пока строка "плавает"; --genres-rest — где она в итоге встаёт на фото
+       (маленький, чтобы не было большой дыры до Mixcloud). */
+    margin: calc(-1 * (var(--genres-lh) + var(--genres-rest))) 0 var(--genres-rest);
     padding-left: var(--hero-pad);
     list-style: none;
     display: flex;
@@ -138,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     gap: clamp(14px, calc(14px + (100vw - 350px) * 0.01669), 40px);
     font-family: "Montserrat", sans-serif;
     font-size: clamp(11px, calc(11px + (100vw - 350px) * 0.01091), 28px);
-    line-height: clamp(16px, calc(16px + (100vw - 350px) * 0.01284), 36px);
+    line-height: var(--genres-lh);
     font-weight: 400;
     letter-spacing: clamp(0.2em, calc(0.2em + (100vw - 350px) * 0.0000257), 0.24em);
     text-transform: uppercase;
@@ -212,8 +237,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin: 0 auto;
   }
   .mixcloud-inner {
-    /* Широкий и центрированный — та же общая ширина, что у всей секции
-       треков (список + фото вместе), поровну отступов слева и справа. */
+    /* Та же ширина, что у всей секции треков (список + фото вместе). */
     width: 100%;
     padding: 2px;
     background: rgba(255, 255, 255, 0.03);
@@ -354,7 +378,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .track-seek:focus-visible {
     outline: 2px solid #fff;
-    outline-offset: 2px;
+    /* внутрь: строка .track с overflow:hidden обрезала внешнюю рамку снизу */
+    outline-offset: -2px;
   }
   .track-progress {
     position: relative;
@@ -571,13 +596,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
 
-  /* ===== Scroll reveal (выборочные блоки) ===== */
-  .reveal {
+  /* ===== Scroll reveal (выборочные блоки) =====
+     Прячем только когда JS реально работает (класс .js ставится в <head>):
+     иначе при отключённом/упавшем JS блоки навсегда остались бы невидимыми. */
+  .js .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 0.9, 0.32, 1);
   }
-  .reveal.is-visible {
+  .js .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -588,7 +615,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition-delay: 0.2s;
   }
   @media (prefers-reduced-motion: reduce) {
-    .reveal {
+    .js .reveal {
       opacity: 1;
       transform: none;
       transition: none;
@@ -641,7 +668,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* ===== Desktop: Mixcloud и треки на всю ширину между отступами hero ===== */
   @media (min-width: 768px) {
     .mixcloud {
-      padding: 32px var(--hero-pad) 0;
+      padding: 24px var(--hero-pad) 0;
     }
     .tracks {
       padding: 14px var(--hero-pad) 48px;
@@ -656,6 +683,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (max-width: 767px) {
     .hero__genres {
       position: absolute;
+      margin: 0;
     }
     /* Логотип на мобильных крупнее (~+27% на 350px). На 767px значения
        совпадают с общей fluid-формулой (60.5/54.8/14.6px), поэтому на
@@ -747,11 +775,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
   <section class="hero">
-    <img src="assets/img/hero.jpg" alt="DiJuly" width="2044" height="1856">
+    <img src="assets/img/hero.jpg" alt="DiJuly" width="2044" height="1856" fetchpriority="high">
     <div class="hero__scrim"></div>
     <div class="hero__plate">
       <h1 class="hero__name">DiJuly</h1>
-      <p class="hero__tagline"></p>
+      <p class="hero__tagline">Dressed in Sound</p>
     </div>
     <ul class="hero__genres">
       <li>Pop</li>
@@ -771,7 +799,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="mixcloud-inner reveal">
         <iframe id="mixcloud-frame"
           src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=0&feed=%2Fdijulyofficial%2Fdijuly-tech-house-mix%2F&utm_medium=share&utm_source=embed&utm_content=show&utm_term=VXNlcjo1NTc2ODUzNg%3D%3D"
-          frameborder="0" loading="lazy" title="DiJuly — Tech House Mix (Mixcloud)"
+          loading="lazy" title="DiJuly — Tech House Mix (Mixcloud)"
           allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;">
         </iframe>
       </div>
@@ -908,7 +936,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="https://www.threads.com/@dijuly" target="_blank" rel="noopener">
         <img src="assets/icons/threads.svg" alt="Threads">
       </a>
-      <a href="https://wa.me/+79260358785" target="_blank" rel="noopener">
+      <a href="https://wa.me/79260358785" target="_blank" rel="noopener">
         <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
       </a>
       <a href="mailto:dijuly.official@gmail.com">
@@ -974,7 +1002,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <section class="footer">
-    <img class="footer-img" src="assets/img/footer-face.jpg" alt="DiJuly" width="2048" height="1229">
+    <img class="footer-img" src="assets/img/footer-face.jpg" alt="DiJuly" width="2048" height="1229" loading="lazy" decoding="async">
   </section>
 
 <script src="assets/js/i18n.js"></script>

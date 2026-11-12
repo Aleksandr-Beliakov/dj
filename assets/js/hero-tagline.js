@@ -14,17 +14,22 @@
 (function () {
   "use strict";
 
-  var TAGLINE = "Dressed in Sound";
-
   var el = document.querySelector(".hero__tagline");
   var nameEl = document.querySelector(".hero__name");
   if (!el || !nameEl) return;
 
+  // Текст берётся из разметки (там же он виден без JS и поисковикам).
+  var TAGLINE = el.textContent.trim();
   var ctx = document.createElement("canvas").getContext("2d");
 
   function render() {
     el.textContent = "";
-    el.setAttribute("aria-label", TAGLINE);
+    // Копия для скринридеров: буквы-span скрыты от них (aria-hidden), а
+    // aria-label на <p> скринридеры не читают.
+    var srText = document.createElement("span");
+    srText.className = "sr-only";
+    srText.textContent = TAGLINE;
+    el.appendChild(srText);
     TAGLINE.split("").forEach(function (ch) {
       var span = document.createElement("span");
       span.setAttribute("aria-hidden", "true");
@@ -55,7 +60,7 @@
   function align() {
     var text = nameEl.firstChild;
     if (!text || text.nodeType !== 3 || !text.length) return;
-    var letters = el.querySelectorAll("span:not(.hero__tagline-space)");
+    var letters = el.querySelectorAll("span[aria-hidden]:not(.hero__tagline-space)");
     if (!letters.length) return;
 
     var last = text.length - 1;

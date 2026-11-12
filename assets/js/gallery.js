@@ -104,15 +104,20 @@
     if (event.key === "ArrowLeft") prev(); else next();
   });
 
-  // Свайп на телефоне.
+  // Свайп на телефоне. Жест, который больше вертикальный, чем
+  // горизонтальный, — это прокрутка страницы, фото при нём не листаем.
   var touchStartX = null;
+  var touchStartY = null;
   stage.addEventListener("touchstart", function (event) {
     touchStartX = event.changedTouches[0].clientX;
+    touchStartY = event.changedTouches[0].clientY;
   }, { passive: true });
   stage.addEventListener("touchend", function (event) {
     if (touchStartX == null) return;
     var dx = event.changedTouches[0].clientX - touchStartX;
+    var dy = event.changedTouches[0].clientY - touchStartY;
     touchStartX = null;
+    if (Math.abs(dy) > Math.abs(dx)) return;
     if (dx > SWIPE_THRESHOLD) prev();
     else if (dx < -SWIPE_THRESHOLD) next();
   }, { passive: true });
